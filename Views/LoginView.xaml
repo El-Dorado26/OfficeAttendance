@@ -1,0 +1,108 @@
+<UserControl
+    x:Class="OfficeAttendance.Views.LoginView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
+
+    <Grid>
+
+        <!-- Main login card -->
+
+        <Border
+            Width="420"
+            Padding="40"
+            CornerRadius="16"
+            Background="{DynamicResource ControlFillColorDefaultBrush}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+
+            <StackPanel>
+
+                <!-- Title -->
+
+                <TextBlock
+                    Text="Office Attendance"
+                    FontSize="30"
+                    FontWeight="SemiBold"
+                    HorizontalAlignment="Center"/>
+
+                <TextBlock
+                    Text="Employee Portal"
+                    FontSize="14"
+                    Opacity="0.6"
+                    HorizontalAlignment="Center"
+                    Margin="0,6,0,35"/>
+
+
+                <!-- Welcome message -->
+
+                <TextBlock
+                    Text="Welcome back"
+                    FontSize="23"
+                    FontWeight="SemiBold"
+                    Margin="0,0,0,6"/>
+
+                <TextBlock
+                    Text="Sign in to access your attendance dashboard."
+                    FontSize="14"
+                    Opacity="0.65"
+                    Margin="0,0,0,25"/>
+
+
+                <!-- Username -->
+
+                <TextBlock
+                    Text="Username"
+                    FontWeight="SemiBold"
+                    Margin="0,0,0,7"/>
+
+                <ui:TextBox
+                    x:Name="UsernameTextBox"
+					TextChanged="UsernameTextBox_TextChanged"
+                    PlaceholderText="Enter your username"
+                    Height="44"
+                    Margin="0,0,0,20"/>
+
+
+                <!-- Password -->
+
+                <TextBlock
+                    Text="Password"
+                    FontWeight="SemiBold"
+                    Margin="0,0,0,7"/>
+
+                <ui:PasswordBox
+                    x:Name="PasswordBox"
+					PasswordChanged="PasswordBox_PasswordChanged"
+                    PlaceholderText="Enter your password"
+                    Height="44"
+                    Margin="0,0,0,30"/>
+
+
+                <!-- Error message -->
+
+                <TextBlock
+                    x:Name="ErrorMessage"
+                    Text=""
+                    Foreground="Red"
+                    FontSize="13"
+                    Margin="0,0,0,10"
+                    TextWrapping="Wrap"/>
+
+
+                <!-- Login button -->
+
+                <ui:Button
+                    x:Name="LoginButton"
+                    Content="Sign In"
+                    Height="46"
+                    HorizontalAlignment="Stretch"
+                    Click="LoginButton_Click"/>
+
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>
