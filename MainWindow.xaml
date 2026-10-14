@@ -6,12 +6,15 @@
 	Title="Office Attendance"
     Width="1200"
     Height="700"
-    WindowStartupLocation="CenterScreen">
+    WindowStartupLocation="CenterScreen"
+
+	Background="#5B3A8E">
 
 	<Grid>
 
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition
+				x:Name="SidebarColumn"
                 Width="220"/>
 
 			<ColumnDefinition
@@ -73,6 +76,13 @@
                 Content="Dashboard"
                 Click="DashboardButton_Click"
                 Margin="0,3"/>
+
+			<ui:Button
+                x:Name="MyAttendanceButton"
+                Content="My Attendance"
+                Click="MyAttendanceButton_Click"
+                Margin="0,3"/>
+			  
 
             <ui:Button
                 x:Name="AttendanceButton"
@@ -136,7 +146,8 @@
 		<!-- Main Content -->
 		<Grid
             x:Name="MainContent"
-            Grid.Column="1">
+            Grid.Column="1"
+			Background="#5B3A8E">
 
 		</Grid>
 

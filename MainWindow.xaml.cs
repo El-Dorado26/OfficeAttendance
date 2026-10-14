@@ -20,6 +20,7 @@ namespace OfficeAttendance
             currentUser = null;
 
             Sidebar.Visibility = Visibility.Collapsed;
+            SidebarColumn.Width = new GridLength(0);
 
             MainContent.Children.Clear();
             MainContent.Children.Add(new LoginView());
@@ -32,6 +33,7 @@ namespace OfficeAttendance
             SidebarUserRole.Text = user.Role;
 
             Sidebar.Visibility = Visibility.Visible;
+            SidebarColumn.Width = new GridLength(220);
 
             if (user.Role == "Admin")
             {
@@ -63,6 +65,22 @@ namespace OfficeAttendance
                 new HomeView(currentUser));
         }
 
+        private void MyAttendanceButton_Click(
+    object sender,
+    RoutedEventArgs e)
+        {
+            if (currentUser == null)
+            {
+                return;
+            }
+
+            MainContent.Children.Clear();
+
+            MainContent.Children.Add(
+                new MyAttendanceView(currentUser));
+        }
+
+
         private void AttendanceButton_Click(
             object sender,
             RoutedEventArgs e)
@@ -92,7 +110,7 @@ namespace OfficeAttendance
             MainContent.Children.Clear();
 
             MainContent.Children.Add(
-                new UserManagementView());
+                new UserManagementView(currentUser));
         }
 
         private void LogoutButton_Click(
@@ -101,5 +119,12 @@ namespace OfficeAttendance
         {
             ShowLogin();
         }
+
+        
+  
+
+         
+
+
     }
 }

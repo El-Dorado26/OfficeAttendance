@@ -9,13 +9,24 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Images\MainLogo.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
+		<PackageReference Include="Linger.Excel.ClosedXML" Version="1.6.4" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.12" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.12">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="WPF-UI" Version="3.0.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Images\MainLogo.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
 	</ItemGroup>
 
 	<ItemGroup>

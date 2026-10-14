@@ -4,62 +4,116 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
 
-    <Grid Background="#F5F5F5">
-
+    <Grid Background="#F6F2FC">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <StackPanel Margin="30,25,30,20">
+        <!-- Page Header -->
+        <Border
+            Grid.Row="0"
+            Background="#7045B5"
+            CornerRadius="20"
+            Padding="25"
+            Margin="25,25,25,20">
 
-            <TextBlock
-                Text="User Management"
-                FontSize="28"
-                FontWeight="SemiBold"/>
+            <StackPanel>
+                <TextBlock
+                    Text="ADMINISTRATION"
+                    FontSize="11"
+                    FontWeight="Bold"
+                    Foreground="#E7DDF9"
+                    Margin="0,0,0,8"/>
 
-            <TextBlock
-                Text="Manage office employees and their accounts."
-                FontSize="14"
-                Foreground="Gray"
-                Margin="0,5,0,0"/>
+                <TextBlock
+                    Text="User Management"
+                    FontSize="28"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    TextWrapping="Wrap"/>
 
-        </StackPanel>
+                <TextBlock
+                    Text="Manage employee accounts, account status, and attendance exports."
+                    FontSize="13"
+                    Foreground="#F0E9FC"
+                    TextWrapping="Wrap"
+                    Margin="0,7,0,0"/>
+            </StackPanel>
+        </Border>
 
         <!-- Main Content -->
-        <Grid Grid.Row="1" Margin="30,0,30,30">
+        <Grid
+            Grid.Row="1"
+            Margin="25,0,25,25">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Users List -->
+            <!-- Employee List Card -->
             <Border
                 Grid.Column="0"
                 Background="White"
-                CornerRadius="12"
+                CornerRadius="18"
                 Padding="20"
-                Margin="0,0,15,0">
+                Margin="0,0,12,0"
+                BorderBrush="#EAE1F7"
+                BorderThickness="1">
 
-                <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                    <TextBlock
-                        Text="Employees"
-                        FontSize="20"
-                        FontWeight="SemiBold"
-                        Margin="0,0,0,15"/>
+                    <StackPanel Margin="0,0,0,16">
+                        <TextBlock
+                            Text="Employees"
+                            FontSize="21"
+                            FontWeight="Bold"
+                            Foreground="#302044"/>
+
+                        <TextBlock
+                            Text="View accounts and manage employee access."
+                            FontSize="12"
+                            Foreground="#877B96"
+                            TextWrapping="Wrap"
+                            Margin="0,5,0,0"/>
+                    </StackPanel>
 
                     <DataGrid
                         x:Name="UsersDataGrid"
+                        Grid.Row="1"
                         AutoGenerateColumns="False"
                         IsReadOnly="True"
                         HeadersVisibility="Column"
-                        BorderThickness="0">
+                        BorderThickness="0"
+                        Background="White"
+                        RowBackground="White"
+                        AlternatingRowBackground="#FAF8FD"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserResizeRows="False"
+                        SelectionMode="Single"
+                        SelectionUnit="FullRow"
+                        GridLinesVisibility="Horizontal"
+                        HorizontalGridLinesBrush="#EEE8F6"
+                        VerticalGridLinesBrush="Transparent"
+                        RowHeight="78">
+
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#F2ECFB"/>
+                                <Setter Property="Foreground" Value="#493064"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="Padding" Value="8,12"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
 
                         <DataGrid.Columns>
-
                             <DataGridTextColumn
                                 Header="Username"
                                 Binding="{Binding Username}"
@@ -68,82 +122,282 @@
                             <DataGridTextColumn
                                 Header="Full Name"
                                 Binding="{Binding FullName}"
-                                Width="*"/>
+                                Width="1.2*"/>
 
                             <DataGridTextColumn
                                 Header="Role"
                                 Binding="{Binding Role}"
-                                Width="*"/>
+                                Width="75"/>
 
-                            <DataGridCheckBoxColumn
-                                Header="Active"
-                                Binding="{Binding IsActive}"
-                                Width="80"/>
+                            <!-- Status -->
+                            <DataGridTemplateColumn
+                                Header="Status"
+                                Width="85">
 
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border
+                                            CornerRadius="10"
+                                            Padding="7,4"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter
+                                                        Property="Background"
+                                                        Value="#FCE8E8"/>
+
+                                                    <Style.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding IsActive}"
+                                                            Value="True">
+                                                            <Setter
+                                                                Property="Background"
+                                                                Value="#E5F6EB"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+
+                                            <TextBlock
+                                                FontSize="11"
+                                                FontWeight="SemiBold">
+
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter
+                                                            Property="Text"
+                                                            Value="Inactive"/>
+                                                        <Setter
+                                                            Property="Foreground"
+                                                            Value="#B3261E"/>
+
+                                                        <Style.Triggers>
+                                                            <DataTrigger
+                                                                Binding="{Binding IsActive}"
+                                                                Value="True">
+                                                                <Setter
+                                                                    Property="Text"
+                                                                    Value="Active"/>
+                                                                <Setter
+                                                                    Property="Foreground"
+                                                                    Value="#237747"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <!-- Actions -->
+                            <DataGridTemplateColumn
+                                Header="Actions"
+                                Width="145">
+
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel
+                                            VerticalAlignment="Center"
+                                            Margin="5,6">
+
+                                            <Button
+                                                Click="ChangeStatusButton_Click"
+                                                Padding="6,5"
+                                                Margin="0,0,0,7"
+                                                MinHeight="30"
+                                                HorizontalAlignment="Stretch"
+                                                Background="#F0E8FF"
+                                                Foreground="#59358F"
+                                                BorderThickness="0"
+                                                FontWeight="SemiBold">
+
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter
+                                                            Property="Content"
+                                                            Value="Activate"/>
+                                                        <Setter
+                                                            Property="Background"
+                                                            Value="#F0E8FF"/>
+                                                        <Setter
+                                                            Property="Foreground"
+                                                            Value="#59358F"/>
+                                                        <Setter
+                                                            Property="BorderThickness"
+                                                            Value="0"/>
+
+                                                        <Style.Triggers>
+                                                            <DataTrigger
+                                                                Binding="{Binding IsActive}"
+                                                                Value="True">
+                                                                <Setter
+                                                                    Property="Content"
+                                                                    Value="Deactivate"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+
+                                            <Button
+                                                Content="Export Excel"
+                                                Click="ExportAttendanceButton_Click"
+                                                Padding="6,5"
+                                                MinHeight="30"
+                                                HorizontalAlignment="Stretch"
+                                                Background="#7045B5"
+                                                Foreground="White"
+                                                BorderThickness="0"
+                                                FontWeight="SemiBold"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
-
                     </DataGrid>
-
-                </StackPanel>
-
+                </Grid>
             </Border>
 
-            <!-- Add User -->
+            <!-- Add Employee Card -->
             <Border
                 Grid.Column="1"
                 Background="White"
-                CornerRadius="12"
-                Padding="20">
+                CornerRadius="18"
+                Padding="22"
+                Margin="12,0,0,0"
+                BorderBrush="#EAE1F7"
+                BorderThickness="1">
 
-                <StackPanel>
+                <!-- Clip the form inside its card -->
+                <Grid>
+                    <ScrollViewer
+                        VerticalScrollBarVisibility="Auto"
+                        HorizontalScrollBarVisibility="Disabled"
+                        Padding="0,0,12,0"
+                        CanContentScroll="True">
 
-                    <TextBlock
-                        Text="Add Employee"
-                        FontSize="20"
-                        FontWeight="SemiBold"
-                        Margin="0,0,0,20"/>
+                        <StackPanel
+                            Margin="0,0,2,12">
 
-                    <TextBlock Text="Username"/>
+                            <!-- Icon -->
+                            <Border
+                                Width="46"
+                                Height="46"
+                                CornerRadius="14"
+                                Background="#F0E8FF"
+                                HorizontalAlignment="Left"
+                                Margin="0,0,0,14">
 
-                    <ui:TextBox
-                        x:Name="UsernameTextBox"
-                        Margin="0,5,0,15"/>
+                                <TextBlock
+                                    Text="+"
+                                    FontSize="30"
+                                    Foreground="#7045B5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Margin="0,-3,0,0"/>
+                            </Border>
 
-                    <TextBlock Text="Full Name"/>
+                            <TextBlock
+                                Text="Add Employee"
+                                FontSize="21"
+                                FontWeight="Bold"
+                                Foreground="#302044"/>
 
-                    <ui:TextBox
-                        x:Name="FullNameTextBox"
-                        Margin="0,5,0,15"/>
+                            <TextBlock
+                                Text="Create a new employee account."
+                                FontSize="12"
+                                Foreground="#877B96"
+                                TextWrapping="Wrap"
+                                Margin="0,5,0,24"/>
 
-                    <TextBlock Text="Password"/>
+                            <!-- Username -->
+                            <TextBlock
+                                Text="Username"
+                                FontSize="12"
+                                FontWeight="SemiBold"
+                                Foreground="#40344F"
+                                Margin="0,0,0,7"/>
 
-                    <ui:PasswordBox
-                        x:Name="PasswordBox"
-                        Margin="0,5,0,15"/>
+                            <ui:TextBox
+                                x:Name="UsernameTextBox"
+                                PlaceholderText="Enter username"
+                                Height="42"
+                                Margin="0,0,0,20"/>
 
-                    <TextBlock Text="Role"/>
+                            <!-- Full Name -->
+                            <TextBlock
+                                Text="Full Name"
+                                FontSize="12"
+                                FontWeight="SemiBold"
+                                Foreground="#40344F"
+                                Margin="0,0,0,7"/>
 
-                    <ui:TextBox
-                        x:Name="RoleTextBox"
-                        Text="Employee"
-                        Margin="0,5,0,20"/>
+                            <ui:TextBox
+                                x:Name="FullNameTextBox"
+                                PlaceholderText="Enter full name"
+                                Height="42"
+                                Margin="0,0,0,20"/>
 
-                    <ui:Button
-                        Content="Add Employee"
-                        Click="AddEmployeeButton_Click"
-                        HorizontalAlignment="Stretch"/>
+                            <!-- Password -->
+                            <TextBlock
+                                Text="Password"
+                                FontSize="12"
+                                FontWeight="SemiBold"
+                                Foreground="#40344F"
+                                Margin="0,0,0,7"/>
 
-                    <TextBlock
-                        x:Name="MessageText"
-                        Margin="0,15,0,0"
-                        TextWrapping="Wrap"/>
+                            <ui:PasswordBox
+                                x:Name="PasswordBox"
+                                PlaceholderText="Enter password"
+                                Height="42"
+                                Margin="0,0,0,20"/>
 
-                </StackPanel>
+                            <!-- Role -->
+                            <TextBlock
+                                Text="Role"
+                                FontSize="12"
+                                FontWeight="SemiBold"
+                                Foreground="#40344F"
+                                Margin="0,0,0,7"/>
 
+                            <ComboBox
+                                x:Name="RoleComboBox"
+                                Height="42"
+                                SelectedIndex="0"
+                                Padding="8,5"
+                                Margin="0,0,0,24">
+
+                                <ComboBoxItem Content="Employee"/>
+                                <ComboBoxItem Content="Admin"/>
+                            </ComboBox>
+
+                            <!-- Add Employee Button -->
+                            <ui:Button
+                                Content="Add Employee"
+                                Click="AddEmployeeButton_Click"
+                                HorizontalAlignment="Stretch"
+                                Height="44"
+                                Margin="0,0,0,8"
+                                Background="#7045B5"
+                                Foreground="White"
+                                FontWeight="SemiBold"/>
+
+                            <!-- Feedback -->
+                            <TextBlock
+                                x:Name="MessageText"
+                                Margin="0,10,0,8"
+                                TextWrapping="Wrap"
+                                Foreground="#59358F"
+                                FontSize="12"/>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
             </Border>
-
         </Grid>
-
     </Grid>
-
 </UserControl>

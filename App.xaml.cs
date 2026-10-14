@@ -1,8 +1,11 @@
-﻿using System.Linq;
-using System.Windows;
+﻿
+using BCrypt.Net;
+using Microsoft.EntityFrameworkCore;
 using OfficeAttendance.Data;
 using OfficeAttendance.Models;
-using BCrypt.Net;
+using System.Linq;
+using System.Windows;
+
 namespace OfficeAttendance
 {
     public partial class App : Application
@@ -13,15 +16,18 @@ namespace OfficeAttendance
 
             using (var db = new AppDbContext())
             {
-                db.Database.EnsureCreated();
+                // Apply any pending database migrations.
+                db.Database.Migrate();
 
+                // Create the default admin only if one does not exist.
                 CreateDefaultAdmin(db);
             }
         }
 
         private void CreateDefaultAdmin(AppDbContext db)
         {
-            User existingUser = db.Users.FirstOrDefault(u => u.Username == "admin");
+            User existingUser = db.Users
+                .FirstOrDefault(u => u.Username == "admin");
 
             if (existingUser != null)
             {
@@ -31,7 +37,8 @@ namespace OfficeAttendance
             User admin = new User
             {
                 Username = "admin",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin123"),
+                PasswordHash =
+                    BCrypt.Net.BCrypt.HashPassword("admin123"),
                 FullName = "Office Administrator",
                 Role = "Admin",
                 IsActive = true
@@ -42,4 +49,3 @@ namespace OfficeAttendance
         }
     }
 }
-
